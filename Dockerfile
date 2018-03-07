@@ -7,23 +7,12 @@ CMD ["/sbin/my_init"]
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install requirements
-# RUN set -x \
-#      && apt-get update -y \
-#      && apt-get dist-upgrade -y \
-#      && apt-get install -y \
-#            software-properties-common \
-#            openssh-server \
-#            sudo \
-#      && rm -rf /var/lib/apt/lists/*
-
-
-
 # Install user tools - feel free to add more here
 RUN set -x \
       && apt-get update -y \
       && apt-get dist-upgrade -y \
       && apt-get install -y \
+            sudo \
             nano \
             git \
             htop \
