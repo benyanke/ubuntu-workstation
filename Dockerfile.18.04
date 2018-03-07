@@ -1,0 +1,24 @@
+FROM ubuntu:18.04
+MAINTAINER Ben Yanke "ben@benyanke.com"
+
+RUN apt-get update -y
+RUN apt-get upgrade -y
+
+# Set the env variable DEBIAN_FRONTEND to noninteractive
+ENV DEBIAN_FRONTEND noninteractive
+
+# Installing the environment required: 
+# RUN apt-get install -y sudo openssh-server 
+
+# Install KDE
+RUN set -x \
+      && apt-get update -y \
+      && apt-get install -y plasma-desktop \
+      && rm -rf /var/lib/apt/lists/*
+
+# Run Setup script
+
+
+# Run it
+# EXPOSE 22
+# CMD ["/usr/sbin/sshd", "-D"]
