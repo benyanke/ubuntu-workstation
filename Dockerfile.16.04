@@ -1,25 +1,31 @@
 FROM ubuntu:16.04
 MAINTAINER Ben Yanke "ben@benyanke.com"
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-
-# Set the env variable DEBIAN_FRONTEND to noninteractive
 ENV DEBIAN_FRONTEND noninteractive
 
-# Installing the environment required: 
-# RUN apt-get install -y sudo openssh-server 
-
-# Install KDE
+# Install requirements
 RUN set -x \
       && apt-get update -y \
-      && apt-get install -y plasma-desktop \
+      && apt-get dist-upgrade -y \
+      && apt-get install -y \
+            software-properties-common \
+            openssh-server \
       && rm -rf /var/lib/apt/lists/*
 
-# Run Setup script
+# Install X2Go server components
+RUN set -x \
+      && add-apt-repository ppa:x2go/stable \
+      && apt-get update -y \
+      && apt-get install -y x2goserver \
+      && rm -rf /var/lib/apt/lists/*
 
+# SSH runtime
+RUN mkdir /var/run/sshd
+
+# Configure default user
+RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu
+RUN echo "ubuntu:ubuntu" | chpasswd
 
 # Run it
-# EXPOSE 22
-# CMD ["/usr/sbin/sshd", "-D"]
-CMD ["/bin/bash"]
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
