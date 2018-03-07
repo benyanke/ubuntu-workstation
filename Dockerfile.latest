@@ -8,7 +8,7 @@ RUN apt-get upgrade -y
 ENV DEBIAN_FRONTEND noninteractive
 
 # Installing the environment required: 
-# RUN apt-get install -y sudo openssh-server 
+RUN apt-get install -y sudo openssh-server 
 
 # Install KDE
 RUN set -x \
@@ -18,7 +18,6 @@ RUN set -x \
 
 # Run Setup script
 
-
 # Run it
-# EXPOSE 22
-# CMD ["/usr/sbin/sshd", "-D"]
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
