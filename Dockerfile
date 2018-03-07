@@ -1,17 +1,21 @@
-FROM ubuntu:latest
+FROM phusion/baseimage:latest
 MAINTAINER Ben Yanke "ben@benyanke.com"
+
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
+
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install requirements
-RUN set -x \
-      && apt-get update -y \
-      && apt-get dist-upgrade -y \
-      && apt-get install -y \
-            software-properties-common \
-            openssh-server \
-            sudo \
-      && rm -rf /var/lib/apt/lists/*
+# RUN set -x \
+#      && apt-get update -y \
+#      && apt-get dist-upgrade -y \
+#      && apt-get install -y \
+#            software-properties-common \
+#            openssh-server \
+#            sudo \
+#      && rm -rf /var/lib/apt/lists/*
 
 
 
@@ -37,7 +41,7 @@ RUN set -x \
 #      && rm -rf /var/lib/apt/lists/*
 
 # SSH runtime
-RUN mkdir /var/run/sshd
+# RUN mkdir /var/run/sshd
 
 # Configure default user
 RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu
@@ -46,7 +50,11 @@ RUN echo "ubuntu:ubuntu" | chpasswd
 # Add user to sudo group
 RUN usermod -aG sudo ubuntu
 
-# Run it
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+# Expose port 22 for SSH
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
 
