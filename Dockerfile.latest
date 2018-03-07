@@ -8,15 +8,13 @@ RUN apt-get upgrade -y
 ENV DEBIAN_FRONTEND noninteractive
 
 # Installing the environment required: 
-RUN apt-get install -y sudo openssh-server 
+RUN apt-get install -y sudo openssh-server htop
 
 # Install KDE
 RUN set -x \
       && apt-get update -y \
       && apt-get install -y plasma-desktop \
       && rm -rf /var/lib/apt/lists/*
-
-# Run Setup script
 
 # Run it
 EXPOSE 22
