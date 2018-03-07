@@ -10,14 +10,31 @@ RUN set -x \
       && apt-get install -y \
             software-properties-common \
             openssh-server \
+            sudo \
+      && rm -rf /var/lib/apt/lists/*
+
+
+
+# Install user tools - feel free to add more here
+RUN set -x \
+      && apt-get update -y \
+      && apt-get dist-upgrade -y \
+      && apt-get install -y \
+            nano \
+            git \
+            htop \
+            vim \
+            zip \
+            unzip \
+            curl \
       && rm -rf /var/lib/apt/lists/*
 
 # Install X2Go server components
-RUN set -x \
-      && add-apt-repository ppa:x2go/stable \
-      && apt-get update -y \
-      && apt-get install -y x2goserver \
-      && rm -rf /var/lib/apt/lists/*
+# RUN set -x \
+#      && add-apt-repository ppa:x2go/stable \
+#      && apt-get update -y \
+#      && apt-get install -y x2goserver \
+#      && rm -rf /var/lib/apt/lists/*
 
 # SSH runtime
 RUN mkdir /var/run/sshd
@@ -26,6 +43,10 @@ RUN mkdir /var/run/sshd
 RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu
 RUN echo "ubuntu:ubuntu" | chpasswd
 
+# Add user to sudo group
+RUN usermod -aG sudo ubuntu
+
 # Run it
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
+
