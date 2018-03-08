@@ -22,6 +22,7 @@ RUN set -x \
             curl \
       && rm -rf /var/lib/apt/lists/*
 
+
 # Install X2Go server components
 # RUN set -x \
 #      && add-apt-repository ppa:x2go/stable \
@@ -31,6 +32,16 @@ RUN set -x \
 
 # SSH runtime
 # RUN mkdir /var/run/sshd
+
+# Install KDE
+RUN set -x \
+      && apt-get update -y \
+      && apt-get dist-upgrade -y \
+      && apt-get install -y \
+            kubuntu-desktop
+      && rm -rf /var/lib/apt/lists/*
+
+kubuntu-desktop
 
 # Configure default user
 RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu
