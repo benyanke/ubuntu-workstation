@@ -30,8 +30,6 @@ RUN set -x \
 #      && apt-get install -y x2goserver \
 #      && rm -rf /var/lib/apt/lists/*
 
-# SSH runtime
-# RUN mkdir /var/run/sshd
 
 # Install KDE
 RUN set -x \
@@ -41,7 +39,9 @@ RUN set -x \
             kubuntu-desktop
       && rm -rf /var/lib/apt/lists/*
 
-kubuntu-desktop
+# Enable SSH
+RUN rm -f /etc/service/sshd/down
+RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Configure default user
 RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu
