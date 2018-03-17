@@ -9,6 +9,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install user tools, x2go, and kde
 RUN set -x \
       && add-apt-repository ppa:x2go/stable -y \
+      && add-apt-repository ppa:libreoffice/libreoffice-6-0 -y \
+      && add-apt-repository remmina-ppa-team/remmina-next -y \
+      && add-apt-repository universe -y \
       && apt-get update -y \
       && apt-get install -y \
             sudo \
@@ -19,13 +22,36 @@ RUN set -x \
             zip \
             unzip \
             curl \
+            screen \
+            libreoffice \
+            remmina \
+            remmina-plugin-rdp \
+            scribus \
+            iputils-ping \
+            mysql-workbench \
+            pdftk \
+            gimp \
+            inkscape \
+            traceroute \
+            nfs-common \
+            cifs-utils \
+            httpie \
+            fping \
+            golang-go \
+            npm \
+            virtualenv \
+            zip \
+            unzip \
+            python-pip \
+            lynx \
             x2goserver \
             x2goserver-xsession \
             kubuntu-desktop \
-            screen \
       && rm -rf /var/lib/apt/lists/*
 
-
+# Snappy - not fully working but leaving in comments for later
+# APT: fuse snapd snap-confine squashfuse \
+# RUN systemctl enable snapd 
 
 # Enable SSH
 RUN rm -f /etc/service/sshd/down ; /etc/my_init.d/00_regen_ssh_host_keys.sh
