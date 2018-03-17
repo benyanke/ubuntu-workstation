@@ -4,13 +4,11 @@ MAINTAINER Ben Yanke "ben@benyanke.com"
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install user tools - feel free to add more here
 RUN set -x \
       && apt-get update -y \
-      && apt-get dist-upgrade -y \
       && apt-get install -y \
             sudo \
             nano \
@@ -20,6 +18,7 @@ RUN set -x \
             zip \
             unzip \
             curl \
+            kubuntu-desktop \
       && rm -rf /var/lib/apt/lists/*
 
 
@@ -31,30 +30,14 @@ RUN set -x \
 #      && rm -rf /var/lib/apt/lists/*
 
 
-# Install KDE
-RUN set -x \
-      && apt-get update -y \
-      && apt-get dist-upgrade -y \
-      && apt-get install -y \
-            kubuntu-desktop
-      && rm -rf /var/lib/apt/lists/*
-
 # Enable SSH
-RUN rm -f /etc/service/sshd/down
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+RUN rm -f /etc/service/sshd/down ; /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Configure default user
-RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu
-RUN echo "ubuntu:ubuntu" | chpasswd
+RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu && echo "ubuntu:ubuntu" | chpasswd && usermod -aG sudo ubuntu
 
-# Add user to sudo group
-RUN usermod -aG sudo ubuntu
-
-
-# Clean up APT when done.
+# Clean up when done
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 
 # Expose port 22 for SSH
 EXPOSE 22
-
