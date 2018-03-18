@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN set -x \
       && add-apt-repository ppa:x2go/stable -y \
       && add-apt-repository ppa:libreoffice/libreoffice-6-0 -y \
-      && add-apt-repository remmina-ppa-team/remmina-next -y \
+      && add-apt-repository ppa:remmina-ppa-team/remmina-next -y \
       && add-apt-repository universe -y \
       && apt-get update -y \
       && apt-get install -y \
@@ -60,7 +60,7 @@ RUN rm -f /etc/service/sshd/down ; /etc/my_init.d/00_regen_ssh_host_keys.sh
 RUN adduser --gecos "Ubuntu User" --disabled-password ubuntu && echo "ubuntu:ubuntu" | chpasswd && usermod -aG sudo ubuntu
 
 # Setup hostname for terminal
-echo "ubuntu-workstation" > /etc/hostname
+RUN echo "ubuntu-workstation" > /etc/hostname
 
 # Clean up when done
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
