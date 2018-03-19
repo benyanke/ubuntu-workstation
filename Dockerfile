@@ -15,6 +15,7 @@ RUN set -x \
       && apt-get update -y \
       && apt-get install -y \
             sudo \
+            pass \
             nano \
             git \
             htop \
