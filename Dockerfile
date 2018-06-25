@@ -14,40 +14,38 @@ RUN set -x \
       && add-apt-repository universe -y \
       && apt-get update -y \
       && apt-get install -y \
-            sudo \
-            pass \
-            nano \
-            git \
-            htop \
-            vim \
-            zip \
-            unzip \
+            cifs-utils \
             curl \
-            screen \
+            fping \
+            gimp \
+            git \
+            golang-go \
+            htop \
+            httpie \
+            inkscape \
+            iputils-ping \
+            kubuntu-desktop \
             libreoffice \
+            lynx \
+            mysql-workbench \
+            nano \
+            nfs-common \
+            npm \
+            pass \
+            pdftk \
+            python-pip \
             remmina \
             remmina-plugin-rdp \
+            screen \
             scribus \
-            iputils-ping \
-            mysql-workbench \
-            pdftk \
-            gimp \
-            inkscape \
+            sudo \
             traceroute \
-            nfs-common \
-            cifs-utils \
-            httpie \
-            fping \
-            golang-go \
-            npm \
-            virtualenv \
-            zip \
             unzip \
-            python-pip \
-            lynx \
+            vim \
+            virtualenv \
             x2goserver \
             x2goserver-xsession \
-            kubuntu-desktop \
+            zip \
       && rm -rf /var/lib/apt/lists/*
 
 # Snappy - not fully working but leaving in comments for later
