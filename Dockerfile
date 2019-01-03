@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:master
 MAINTAINER Ben Yanke "ben@benyanke.com"
 
 # Use baseimage-docker's init system.
