@@ -48,7 +48,7 @@ RUN set -x \
             x2goserver \
             x2goserver-xsession \
             kubuntu-desktop \
-      && apt purge bluez* -y
+      && apt purge bluez* -y \
       && rm -rf /var/lib/apt/lists/*
 
 # Removing bluez because the bluetooth stack freaks out when run in a container
